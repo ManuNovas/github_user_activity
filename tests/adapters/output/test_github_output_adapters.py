@@ -76,5 +76,5 @@ class GithubOutputAdapterTest(TestCase):
         get_mock.return_value = mock_response
         user = "octocat404"
         user_activity = self.adapter.get_user_activity(user)
-        self.assertEqual(user_activity, None)
+        self.assertEqual(user_activity, [])
         self.assertLogs("404")
