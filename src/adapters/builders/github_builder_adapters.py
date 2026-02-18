@@ -13,6 +13,7 @@ class GithubBuilderAdapter(GithubBuilderPort):
                 ref = activity["payload"]["ref_type"]
                 message = f"Created a new {ref} in {repo_name}"
             elif type == "DeleteEvent":
+                ref = activity["payload"]["ref_type"]
                 message = f"Deleted a {ref} in {repo_name}"
             elif type == "DiscussionEvent":
                 message = f"Created a discussion in {repo_name}"
@@ -25,24 +26,24 @@ class GithubBuilderAdapter(GithubBuilderPort):
             elif type == "IssuesEvent":
                 message = f"Open a new issue in {repo_name}"
             elif type == "MemberEvent":
-                action = activity["action"]
+                action = activity["payload"]["action"]
                 message = f"A member was {action} in {repo_name}"
             elif type == "PublicEvent":
                 message = f"Changed {repo_name} to public"
             elif type == "PullRequestEvent":
-                action = activity["action"]
+                action = activity["payload"]["action"]
                 message = f"A pull request was {action} in {repo_name}"
             elif type == "PullRequestReviewEvent":
-                action = activity["action"]
+                action = activity["payload"]["action"]
                 message = f"A pull request review was {action} in {repo_name}"
             elif type == "PullRequestReviewCommentEvent":
-                action = activity["action"]
+                action = activity["payload"]["action"]
                 message = f"A pull request review comment was {action} in {repo_name}"
             elif type == "PushEvent":
                 message = f"Pushed a commit in {repo_name}"
             elif type == "ReleaseEvent":
-                action = activity["action"]
-                message = f"A release was {type} in {repo_name}"
+                action = activity["payload"]["action"]
+                message = f"A release was {action} in {repo_name}"
             elif type == "WatchEvent":
                 message = f"Starred {repo_name}"
             else:
