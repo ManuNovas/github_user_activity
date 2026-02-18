@@ -1,8 +1,9 @@
-from src.application.ports.output import GithubOutputPort
 from src.application.ports.builders import GithubBuilderPort
+from src.application.ports.input import GithubInputPort
+from src.application.ports.output import GithubOutputPort
 
 
-class GithubUseCases:
+class GithubUseCases(GithubInputPort):
     output: GithubOutputPort
     builder: GithubBuilderPort
 
