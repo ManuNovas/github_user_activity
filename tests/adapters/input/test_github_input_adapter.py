@@ -20,10 +20,10 @@ class TestGithubInputAdapter(TestCase):
         self.input_adapter = GithubInputAdapter(use_cases)
 
     def test_get_activity(self):
-        result = self.input_adapter.main(["python", "main.py", "CliveRosfield"])
+        result = self.input_adapter.main(["main.py", "CliveRosfield"])
         self.assertEqual(result, 0)
         self.assertLogs("CliveRosfield")
 
     def test_get_activity_without_user(self):
-        result = self.input_adapter.main(["python", "main.py"])
+        result = self.input_adapter.main(["main.py"])
         self.assertEqual(result, 1)

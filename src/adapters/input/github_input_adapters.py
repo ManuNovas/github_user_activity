@@ -8,10 +8,10 @@ class GithubInputAdapter:
         self.input_port = input_port
 
     def main(self, argv: list[str]) -> int:
-        if len(argv) < 3:
+        if len(argv) < 2:
             print("You should specify a github user")
             return 1
-        user = argv[2]
+        user = argv[1]
         activity = self.input_port.get_activity(user)
         for a in activity:
             print(f"- {a}")
