@@ -1,10 +1,13 @@
+from cachetools import cached, TTLCache
 from requests import get
+
 from src.application.ports.output import GithubOutputPort
 
 
 class GithubOutputAdapter(GithubOutputPort):
     URL = "https://api.github.com"
 
+    @cached(cache=TTLCache(maxsize=1024, ttl=512))
     def get_user_activity(self, user: str) -> list:
         url = f"{self.URL}/users/{user}/events"
         headers = {
