@@ -129,8 +129,70 @@ class TestGithubBuilderAdapter(TestCase):
                 },
             },
         ]
-        messages = self.builder.build_activities(activities)
+        messages = self.builder.build_activities(activities, None)
         self.assertEqual(len(activities), len(messages))
+
+    def test_build_activities_with_filter(self):
+        activities = [
+            {
+                "type": "CommitCommentEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+            },
+            {
+                "type": "CreateEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+                "payload": {
+                    "ref_type": "branch",
+                },
+            },
+            {
+                "type": "DeleteEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+                "payload": {
+                    "ref_type": "branch",
+                },
+            },
+        ]
+        activity_type = "CreateEvent"
+        messages = self.builder.build_activities(activities, activity_type)
+        self.assertEqual(len(messages), 1)
+
+    def test_build_empty_activities_with_filter(self):
+        activities = [
+            {
+                "type": "CommitCommentEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+            },
+            {
+                "type": "CreateEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+                "payload": {
+                    "ref_type": "branch",
+                },
+            },
+            {
+                "type": "DeleteEvent",
+                "repo": {
+                    "name": "clive-rosfield/final-fantasy-xvi",
+                },
+                "payload": {
+                    "ref_type": "branch",
+                },
+            },
+        ]
+        activity_type = "WatchEvent"
+        messages = self.builder.build_activities(activities, activity_type)
+        self.assertEqual(len(messages), 0)
 
     def test_build_invalid_activities(self):
         activities = activities = [
@@ -141,5 +203,5 @@ class TestGithubBuilderAdapter(TestCase):
                 },
             },
         ]
-        messages = self.builder.build_activities(activities)
+        messages = self.builder.build_activities(activities, None)
         self.assertEqual(len(messages), 0)

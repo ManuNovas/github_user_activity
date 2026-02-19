@@ -46,5 +46,5 @@ class TestGithubUseCases(TestCase):
         response_mock.status_code = 200
         response_mock.json.return_value = activities
         get_mock.return_value = response_mock
-        activity = self.use_cases.get_activity("clive-rosfield")
+        activity = self.use_cases.get_activity("clive-rosfield", None)
         self.assertEqual(len(activity), len(activities))

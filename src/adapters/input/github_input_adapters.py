@@ -12,7 +12,8 @@ class GithubInputAdapter:
             print("You should specify a github user")
             return 1
         user = argv[1]
-        activity = self.input_port.get_activity(user)
+        activity_type = argv[2] if len(argv) > 2 else None
+        activity = self.input_port.get_activity(user, activity_type)
         for a in activity:
             print(f"- {a}")
         return 0

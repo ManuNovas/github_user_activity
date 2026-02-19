@@ -11,6 +11,6 @@ class GithubUseCases(GithubInputPort):
         self.output = output
         self.builder = builder
 
-    def get_activity(self, user: str):
+    def get_activity(self, user: str, activity_type: str | None):
         activities = self.output.get_user_activity(user)
-        return self.builder.build_activities(activities)
+        return self.builder.build_activities(activities, activity_type)
